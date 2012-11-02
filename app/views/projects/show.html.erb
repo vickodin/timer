@@ -1,13 +1,16 @@
 <p id="notice"><%= notice %></p>
-<% @project.tracks.where("stopped_at IS NOT NULL").each do |track| %>
+<% total = 0 %>
+<% @tracks.each do |track| %>
+	<% total +=(track.stopped_at - track.created_at) %>
 	<p>
-		<%= track.stopped_at - track.created_at %>
+		<%= Time.at(track.stopped_at - track.created_at).utc.strftime("%H:%M:%S") %>
 		<%= link_to 'Destroy', project_track_path(@project, track), method: :delete, data: { confirm: 'Are you sure?' } %>
 	</p>
 
 <% end %>
 
 <% if @current_track %>
+	<% total += (Time.now-@current_track.created_at) %>
 	current timer: <%= @current_track.created_at %>
 	<%= form_for [@project, @current_track] do |f| %>
 		<%= f.submit "stop" %>
@@ -19,6 +22,8 @@
 	<% end %>
 <!--//new timer -->
 <% end %>
-
+<p>
+	Total: <%=Time.at(total).utc.strftime("%H:%M:%S") %>
+</p>
 
 <%= link_to 'Back', projects_path %>

@@ -17,6 +17,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = current_user.projects.find(params[:id])
+    @tracks  = @project.tracks.where("stopped_at IS NOT NULL")
     @current_track = @project.tracks.find(:first, :conditions => {:stopped_at => nil})
     respond_to do |format|
       format.html # show.html.erb
