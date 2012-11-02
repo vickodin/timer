@@ -1,6 +1,10 @@
 class TracksController < ApplicationController
-  before_filter :find_the_project
-
+  before_filter :find_the_project, :except => [:index]
+  before_filter :require_login
+  
+  def index
+    redirect_to projects_path
+  end
   def new
     @track = Track.new
 
@@ -15,7 +19,7 @@ class TracksController < ApplicationController
   def create
     @track = Track.new(params[:track])
     @track.project_id = @project.id
-    
+
     respond_to do |format|
       if @track.save
         format.html { redirect_to @project, notice: 'Track was successfully created.' }
