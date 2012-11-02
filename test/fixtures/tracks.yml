@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  project_id: 1
+  stopped_at: 2012-11-02 23:11:55
+
+two:
+  project_id: 1
+  stopped_at: 2012-11-02 23:11:55

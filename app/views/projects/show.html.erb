@@ -1,5 +1,11 @@
 <p id="notice"><%= notice %></p>
+<% @project.tracks.where("stopped_at IS NOT NULL").each do |track| %>
+	<p><%= track.stopped_at - track.created_at %></p>
+<% end %>
 
+<% if @current_track %>
+current timer: <%= @current_track.created_at %>
+<% end %>
 
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

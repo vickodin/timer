@@ -9,6 +9,6 @@ class User < ActiveRecord::Base
   validates_presence_of :username
   validates_uniqueness_of :email
  
-  has_many :projects
+  has_many :projects, :dependent => :destroy
 
 end
