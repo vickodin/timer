@@ -7,7 +7,10 @@ Timer::Application.routes.draw do
   resources :users
   resources :user_sessions
   resources :password_resets
-  resources :projects
+  resources :projects do
+    resources :tracks
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
