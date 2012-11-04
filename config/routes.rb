@@ -1,5 +1,5 @@
 Timer::Application.routes.draw do
-  get "home/index"
+  get "home/index", :as => "home"
 
   get "logout" => "user_sessions#destroy", :as => "logout"
   get "login" => "user_sessions#new", :as => "login"
