@@ -5,6 +5,9 @@ class TracksController < ApplicationController
   def index
     redirect_to projects_path
   end
+  def show
+    redirect_to projects_path
+  end
   def new
     @track = Track.new
 
@@ -25,7 +28,7 @@ class TracksController < ApplicationController
         format.html { redirect_to @project, notice: 'Track was successfully created.' }
         format.json { render json: @track, status: :created, location: @project }
       else
-        format.html { redirect_to @project, notice: 'Error' }
+        format.html { redirect_to @project, alert: 'Error' }
         format.json { render json: @track.errors, status: :unprocessable_entity }
       end
     end
@@ -41,7 +44,7 @@ class TracksController < ApplicationController
         format.html { redirect_to @project, notice: 'Track was successfully stopped.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to @project, notice: 'error' }
+        format.html { redirect_to @project, alert: 'Error' }
         format.json { render json: @track.errors, status: :unprocessable_entity }
       end
     end

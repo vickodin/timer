@@ -4,4 +4,5 @@ class Project < ActiveRecord::Base
   has_many :tracks, :dependent => :destroy
 
   validates_presence_of :name
+  validates_presence_of :user
 end
