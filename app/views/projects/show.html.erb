@@ -1,31 +1,32 @@
-<p><%= link_to "Main Page", root_url %></p>
-<h1><%= @project.name %></h1>
-<p id="notice"><%= notice %></p>
+<h1>Project name: <%= @project.name %></h1>
 <% total = 0 %>
+<% if @tracks.count > 0 %>
+  <h3>Track list:</h3>
+<% end %>
 <% @tracks.each do |track| %>
 	<% total +=(track.stopped_at - track.created_at) %>
 	<p>
 		<%= Time.at(track.stopped_at - track.created_at).utc.strftime("%H:%M:%S") %>
-		<%= link_to 'Destroy', project_track_path(@project, track), method: :delete, data: { confirm: 'Are you sure?' } %>
+		[<%= link_to 'x', project_track_path(@project, track), method: :delete, data: { confirm: 'Are you sure?' } %>]
 	</p>
 
 <% end %>
 
 <% if @current_track %>
 	<% total += (Time.now-@current_track.created_at) %>
-	current timer: <%= @current_track.created_at %>
+	<strong>current timer, started at: <%= l @current_track.created_at %></strong>
 	<%= form_for [@project, @current_track] do |f| %>
 		<%= f.submit "stop" %>
 	<% end %>
 <% else %>
 <!-- new timer -->
 	<%= form_for [@project, Track.new] do |f| %>
-		<%= f.submit "start" %>
+		<%= f.submit "start new" %>
 	<% end %>
 <!--//new timer -->
 <% end %>
 <p>
-	Total: <%=Time.at(total).utc.strftime("%H:%M:%S") %>
+	<strong>Total: <%=Time.at(total).utc.strftime("%H:%M:%S") %></strong>
 </p>
 
 <%= link_to 'Back', projects_path %>
